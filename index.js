@@ -4,7 +4,7 @@ const mainLib = require("./lib/mainLib");
 const fs = require("fs");
 
 const productname = "GenK8sManifest [@mytinydc.com]";
-const version = "v0.1.0-beta";
+const version = "v0.1.0-beta.1";
 
 /**
  * sync main process
@@ -14,14 +14,18 @@ const version = "v0.1.0-beta";
     // Nodejs 16 min is require
     const t0 = performance.now();
 
-    // get command line arguments
-    const cmdarguments = mainLib.getCommandLineArguments(true);
-
+    // create init description file
+    if (process.argv.includes("-init")) {
+      genLib.buildDecriptionInit();
+      process.exit(0);
+    }
     // display Version & exit
     if (process.argv.includes("-v")) {
       console.info(`${productname} - Version: ${version}`);
       process.exit(0);
     }
+    // get command line arguments
+    const cmdarguments = mainLib.getCommandLineArguments(true);
 
     // extract default templates (prior)
     if (process.argv.includes("-e")) {

@@ -4,3 +4,4 @@ output/*
 mydescriptions
 testexportdefaulttemplates
 .vscode/settings.json
+description.yml

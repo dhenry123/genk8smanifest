@@ -1,0 +1,97 @@
+---
+# Exemple pour un deployment, un container, un service avec son ingress
+# Tous les attributs sont en minuscules pour simplifier
+namespace: "namespacename"
+glusterfsipaddr: "xxx.xxx.xxx.xxx"
+secrets:
+  - name: "dockerregistry"
+    registry: "docker.private.local"
+    value: "login:password"
+
+global:
+  revision: 1
+  strategy: "Recreate | rollingUpdate"
+  env:
+    - "PGUSER=postgreslogin"
+    - "PGHOST=database.postgres.server.local"
+    # Le container doit sortir et utilisera le proxy central, la valeur de la clé dépend surtout du langage de programmation.
+    - "http_proxy=http://mycorporateproxy.local:3128"
+    - "https_proxy=http://mycorporateproxy.local:3128"
+    - "HTTP_PROXY=http://mycorporateproxy.local:3128"
+    - "HTTPS_PROXY=http://mycorporateproxy.local:3128"
+  persistentvolumes:
+    - name: "files"
+      capacity: "80Gi"
+      access: "RWO"
+      mount: "/tracks"
+      useexistingglustervolume: "glustervolumesfiles"
+    - name: "resourcesobjects"
+      capacity: "1Gi"
+      access: "RWO"
+      mount: "/resourcesobjects"
+  temporaryvolumes:
+    - name: "temp"
+      mount: "/tmpfileupload"
+    - name: "logs"
+      mount: "/applicationlogs"
+  limitrange:
+    max:
+      cpu: "500m"
+      memory: "150Mi"
+    request:
+      cpu: "100m"
+      memory: "50Mi"
+  securitycontext:
+    runasuser: 21000
+    runasgroup: 21000
+    fsgroup: 21000
+  scale:
+    scalable: false
+    replicas: 1
+containers:
+  - name: "monpremiercontainer"
+    image: "docker.private.local/exemplemonpremiercontainer"
+    dockerregistrysecret:
+      - "dockerregistry"
+    tag: "beta"
+    readonly: true
+    probes:
+      readiness:
+        method: "http"
+        path: "/api/healthz"
+        port: 3115
+        initdelay: 3
+        period: 2
+        timeout: 3
+      startup:
+        method: "http"
+        path: "/api/healthz"
+        port: 3115
+        initdelay: 3
+        period: 120
+        timeout: 3
+      liveness:
+        method: "http"
+        path: "/api/healthz"
+        port: 3115
+        initdelay: 3
+        period: 120
+        timeout: 3
+    services:
+      - targetport: 3115
+        ingress:
+          host: "monservice.music.local"
+          path: "/"
+          # Annotations (type "object") sont spécifié par votre controller ingress (voir la documentation de votre controller ingress)
+          # si la valeur d'un attribut est une valeur de ce document indiquer sa valeur en respectant la syntaxe object xxx.xxx....
+          annotations:
+            mytinydchaproxy_protocol: "https"
+            # ex : j'utilise la valeur service.ingress.host dans l'attribut : mytinydchaproxy_host
+            # à ce niveau il s'agit d'une array, et chaque item de cette array est attribué à l'attribut service du schéma de données (dans ce cas précis)
+            # Il s'agit ici me montrer les possibilté du process, vous pouvez tout simplement copier la valeur de cette attribut directement :
+            # mytinydchaproxy_host: "monservice.music.local" services : [{host:"monservice.music.local"...}].
+            mytinydchaproxy_host: "<%= service.ingress.host %>"
+            mytinydchaproxy_balance: "roundrobin"
+            mytinydchaproxy_internetexposed: true
+            mytinydchaproxy_finaltls: false
+            mytinydchaproxy_maxconnserver: 10
