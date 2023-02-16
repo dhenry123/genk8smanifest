@@ -1,0 +1,24 @@
+##
+# This manifest could only be integrated by kubernetes admin user
+##
+apiVersion: 'v1'
+kind: 'PersistentVolume'
+metadata:
+  name: '<%= namemanifest %>'
+spec:
+  ## volume could only be used by namespace <%= namespace %>
+  claimRef:
+    name: '<%= nameclaimrefmanifest %>'
+    namespace: '<%= namespace %>'
+  capacity:
+    storage: '<%= volume.capacity %>'
+  accessModes:
+    - "<%= volume.accessmode %>"
+  # If no storageclassname using default mytinydc glusterfs storage
+  storageClassName: '<%= volume.storageclassname %>'
+  persistentVolumeReclaimPolicy: '<%= volume.reclaimpolicy ? volume.reclaimpolicy : 'Retain' %>'
+  <% if (!volume.storageclassname) { %>glusterfs:
+    endpoints: 'glusterfs-cluster'
+    path: '<% if (!volume.useexistingglustervolume) { %><%= namespace %>-<%= volume.name %><% }else{ %><%= volume.useexistingglustervolume %><% } %>'
+    readOnly: <%= volume.readOnly %><% }; %>
+---

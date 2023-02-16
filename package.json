@@ -1,0 +1,55 @@
+{
+  "name": "genk8smanifest",
+  "version": "v0.1.0-beta",
+  "description": "génerateur de 'manifest' kubernetes à partir d'un fichier de description yaml",
+  "main": "index.js",
+  "scripts": {
+    "installation": "npm install && npm run testFull",
+    "testFull": "jest --reporters=default --coverage",
+    "testunitchecklibcontainer": "jest --reporters=default --coverage containers",
+    "testunitchecklibglobalStrategy": "jest --reporters=default --coverage checkLib-globalStrategy",
+    "testunitcheckLib-Miscs": "jest --reporters=default --coverage checkLib-Miscs",
+    "testunit-genNamespace": "jest --reporters=default --coverage Namespace",
+    "testunit-genSecret-dockerregistry": "jest --reporters=default --coverage Secret-dockerregistry",
+    "testunit-genSecret-globalEnv": "jest --reporters=default --coverage Secret-globalEnv",
+    "testunit-genSecrets": "jest --reporters=default --coverage Secrets",
+    "testunit-GlusterFsStorageEndPoint": "jest --reporters=default --coverage GlusterFsStorageEndPoint",
+    "testunit-genPersitentVolume": "jest --reporters=default --coverage PersitentVolume",
+    "testunit-genPersitentVolumeClaim": "jest --reporters=default --coverage PersitentVolumeClaim",
+    "testunit-genLimitRange": "jest --reporters=default --coverage LimitRange",
+    "testunit-genDeployment": "jest --reporters=default --coverage Deployment",
+    "testunit-genService": "jest --reporters=default --coverage Service",
+    "testunit-genServiceNoIngress": "jest --reporters=default --coverage ServiceNoIngress",
+    "testunit-commandlinearguments": "jest --reporters=default --coverage commandlinearguments",
+    "testunit-helperGenLig-getTemplate": "jest --reporters=default --coverage getTemplate",
+    "genpartial-namespace": "node index -i applicationDescriptionExemple -s -n",
+    "genpartial-secrets": "node index -i applicationDescriptionExemple -s -sec ",
+    "genpartial-deployment": "node index -i applicationDescriptionExemple -s -d ",
+    "genpartial-pv": "node index -i applicationDescriptionExemple -s -pv ",
+    "genpartial-pvc": "node index -i applicationDescriptionExemple -s -pvc ",
+    "genpartial-limitrange": "node index -i applicationDescriptionExemple -s -l ",
+    "genpartial-service": "node index -i applicationDescriptionExemple -s -serv ",
+    "genManifest-exemple": "node index -i applicationDescriptionExemple -o output/manifest.yml",
+    "genManifest-exemple-with-customtpl": "node index -tplcustomdir templatescustom -i applicationDescriptionExemple",
+    "exportdefaulttemplates": "node index -e testexportdefaulttemplates",
+    "build-executables": "pkg --compress GZip -c ./package.json index.js",
+    "execute-exemple": "./dist/genk8smanifest-x64 -i ./applicationDescriptionExemple"
+  },
+  "author": "Damien HENRY - Pour Mytinydc.com",
+  "license": "A-GPL",
+  "dependencies": {
+    "ejs": "^3.1.8",
+    "jest": "^29.3.1",
+    "yaml": "^2.2.0"
+  },
+  "pkg": {
+    "scripts": "index.js",
+    "assets": "templates/*",
+    "outputPath": "dist",
+    "targets": [
+      "node16-linux-x64",
+      "node16-linux-arm64",
+      "node16-win-x64"
+    ]
+  }
+}

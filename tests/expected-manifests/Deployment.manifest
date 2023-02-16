@@ -1,0 +1,139 @@
+apiVersion: 'apps/v1'
+kind: 'Deployment'
+metadata:
+  name: 'monnamespacetest' 
+  namespace: 'monnamespacetest' 
+spec:
+  revisionHistoryLimit: 2
+  strategy:
+    type: 'Recreate'
+  selector:
+    matchLabels:
+      app: 'monnamespacetest' 
+  replicas: 1
+  template: 
+    metadata:
+      labels:
+        app: 'monnamespacetest' 
+    spec:
+      imagePullSecrets:
+      - name : 'dockerregistry'
+      - name : 'dockerregistry1'
+      securityContext:
+        runAsUser: 1000
+        runAsNonRoot: true
+        runAsGroup: 1001
+        fsGroup: 1002
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: 'serialport'
+                operator: In
+                values:
+                - 'yes'
+      containers:
+      - name: 'container1'
+        env:
+          - name: 'MONNAMESPACETEST__database__DB_TYPE'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'MONNAMESPACETEST__database__DB_TYPE'
+                optional: false
+          - name: 'MONNAMESPACETEST1__database__DB_TYPE'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'MONNAMESPACETEST1__database__DB_TYPE'
+                optional: false
+        image: 'app/app1:1.0.0'
+        imagePullPolicy: 'IfNotPresent'
+        livenessProbe:
+          command:
+            - cat
+            - /tmp/healthy
+        readinessProbe:
+          httpGet:
+            path: '/'
+            port: 8080
+            scheme: 'https'
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 5
+          successThreshold: 2
+          failureThreshold: 2
+        securityContext:
+          readOnlyRootFilesystem: true
+        ports:
+          - containerPort: 3000
+            protocol: 'TCP'
+            name : 'port-3000'
+        volumeMounts:
+          - mountPath: '/data'
+            name: 'gluster-pv-monnamespacetest-data'
+          - mountPath: '/data1'
+            name: 'gluster-pv-monnamespacetest-data1'
+          - mountPath: '/temp'
+            name: 'tmpvol-temp'
+          - mountPath: '/logs'
+            name: 'tmpvol-logs'
+      - name: 'container2'
+        env:
+          - name: 'MONNAMESPACETEST__database__DB_TYPE'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'MONNAMESPACETEST__database__DB_TYPE'
+                optional: false
+          - name: 'MONNAMESPACETEST1__database__DB_TYPE'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'MONNAMESPACETEST1__database__DB_TYPE'
+                optional: false
+        image: 'app/app2:1.0.1'
+        imagePullPolicy: 'Always'
+        readinessProbe:
+          httpGet:
+            path: '/healthy'
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          timeoutSeconds: 5
+          successThreshold: 2
+          failureThreshold: 2
+        startupProbe:
+          httpGet:
+            path: '/healthy'
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          timeoutSeconds: 5
+          successThreshold: 2
+          failureThreshold: 2
+        livenessProbe:
+          httpGet:
+            path: '/healthy'
+            port: 3000
+        securityContext:
+          readOnlyRootFilesystem: true
+        ports:
+        volumeMounts:
+          - mountPath: '/data'
+            name: 'gluster-pv-monnamespacetest-data'
+          - mountPath: '/temp'
+            name: 'tmpvol-temp'
+      volumes:
+        - name: 'gluster-pv-monnamespacetest-data'
+          persistentVolumeClaim:
+            claimName: 'claimref-gluster-pv-monnamespacetest-data'
+        - name: 'gluster-pv-monnamespacetest-data1'
+          persistentVolumeClaim:
+            claimName: 'claimref-gluster-pv-monnamespacetest-data1'
+        - name: 'tmpvol-temp'
+          emptyDir: {}
+        - name: 'tmpvol-logs'
+          emptyDir: {}
+---

@@ -1,0 +1,21 @@
+apiVersion: 'v1'
+kind: 'LimitRange'
+metadata:
+  name: 'limitrange-<%= namespace %>'
+  namespace: '<%= namespace %>'
+spec:
+  limits:
+  - default:
+      cpu: '<%= global.limitrange.max.cpu %>'
+      memory: '<%= global.limitrange.max.memory %>'
+    defaultRequest:
+      cpu: '<%= global.limitrange.request.cpu %>'
+      memory: '<%= global.limitrange.request.memory %>'
+    max:
+      cpu: '<%= global.limitrange.max.cpu %>'
+      memory: '<%= global.limitrange.max.memory %>'
+    min:
+      cpu: '<%= global.limitrange.request.cpu %>'
+      memory: '<%= global.limitrange.request.memory %>'
+    type: Container
+---

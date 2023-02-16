@@ -1,0 +1,7 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "xxxx",
+    "projectKey": "xxx"
+  },
+  "cSpell.enableFiletypes": ["!javascript", "!json", "!yaml"]
+}

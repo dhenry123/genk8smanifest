@@ -1,0 +1,23 @@
+apiVersion: 'v1'
+kind: 'Service'
+metadata:
+  name: '<%= service.name %>'
+  namespace: '<%= namespace %>'
+  <% if (service.ingress && service.ingress.host && service.ingress.annotations) { %>
+  # Special annotations for mytinydc haproxy controller (not cover here, will be ignored by your installation)
+  annotations:
+    balance: '<%= service.ingress.annotations.mytinydchaproxy_balance %>'
+    url: '<%= service.ingress.annotations.mytinydchaproxy_protocol %>://<%= service.ingress.host %>'
+    internetexposed: '<%= service.ingress.annotations.mytinydchaproxy_internetexposed %>'
+    finaltls: '<%= service.ingress.annotations.mytinydchaproxy_finaltls %>'
+    <% if (service.ingress.annotations.mytinydchaproxy_maxconnserver) {%>maxconnserver: '<%= service.ingress.annotations.mytinydchaproxy_maxconnserver %>'<% }} %>
+spec:
+  type: '<%= service.type %>'
+  ports:
+  - port: <%= service.targetport %>
+    protocol: '<%= service.protocol %>'
+    targetPort: <%= service.targetport %>
+    name: '<%= service.portname %>'
+  selector:
+    app: '<%= namespace %>'
+---

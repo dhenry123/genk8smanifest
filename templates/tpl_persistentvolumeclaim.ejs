@@ -1,0 +1,15 @@
+apiVersion: 'v1'
+kind: 'PersistentVolumeClaim'
+metadata:
+  # ClaimRef used by PV
+  name: '<%= nameclaimrefmanifest %>'
+  namespace: '<%= namespace %>'
+spec:
+  # Name of PV
+  volumeName: '<%= namemanifest %>'
+  accessModes:
+    - '<%= volume.accessmode %>'
+  resources:
+    requests:
+      storage: '<%= volume.capacity %>'
+---
