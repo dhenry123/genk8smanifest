@@ -1,8 +1,8 @@
 # GenK8sManifest
 
-Générateur de manifest Kubernetes à partir d'une description applicative yaml.
+Générateur de "Manifest" Kubernetes à partir d'une description applicative yaml.
 
-**ATTENTION - Version BETA -> v0.1.0-beta**
+**ATTENTION - Version BETA**
 
 ## Synopsis
 
@@ -121,6 +121,7 @@ Les exécutables sont générés par le projet "Pkg" disponible sur le repositor
 ## Arguments de commande
 
 - "-v" : Affiche la version de l'application
+- "-init" : Crée le fichier de description "description.yml". Il s'agit d'un fichier de description initialisé
 - "-i [chemin complet ou relatif du fichier de description applicatif (.yml)]" : Document de description de l'application (document yaml)
 - "-o [chemin complet ou relatif de sortie du manifest kubernetes (.yml)]" : Manifest généré (par défaut sur la sortie standard STD) (document yaml)
 - "-tplcustomdir [chemin complet ou relatif du répertoire contenant les templates personnalisés]"
