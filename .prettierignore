@@ -1,0 +1,4 @@
+*.ejs
+output/*
+mydescriptions/*
+README-Description.md

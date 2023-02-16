@@ -1,0 +1,30 @@
+apiVersion: 'v1'
+kind: 'PersistentVolumeClaim'
+metadata:
+  # ClaimRef used by PV
+  name: 'claimref-gluster-pv-monnamespacetest-data'
+  namespace: 'monnamespacetest'
+spec:
+  # Name of PV
+  volumeName: 'gluster-pv-monnamespacetest-data'
+  accessModes:
+    - 'ReadWriteOnce'
+  resources:
+    requests:
+      storage: '4Gi'
+---
+apiVersion: 'v1'
+kind: 'PersistentVolumeClaim'
+metadata:
+  # ClaimRef used by PV
+  name: 'claimref-gluster-pv-monnamespacetest-data1'
+  namespace: 'monnamespacetest'
+spec:
+  # Name of PV
+  volumeName: 'gluster-pv-monnamespacetest-data1'
+  accessModes:
+    - 'ReadOnlyMany'
+  resources:
+    requests:
+      storage: '2Gi'
+---

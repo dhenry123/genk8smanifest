@@ -1,0 +1,48 @@
+##
+# This manifest could only be integrated by kubernetes admin user
+##
+apiVersion: 'v1'
+kind: 'PersistentVolume'
+metadata:
+  name: 'gluster-pv-monnamespacetest-data'
+spec:
+  ## volume could only be used by namespace monnamespacetest
+  claimRef:
+    name: 'claimref-gluster-pv-monnamespacetest-data'
+    namespace: 'monnamespacetest'
+  capacity:
+    storage: '4Gi'
+  accessModes:
+    - "ReadWriteOnce"
+  # If no storageclassname using default mytinydc glusterfs storage
+  storageClassName: ''
+  persistentVolumeReclaimPolicy: 'Retain'
+  glusterfs:
+    endpoints: 'glusterfs-cluster'
+    path: 'monnamespacetest-data'
+    readOnly: false
+---
+##
+# This manifest could only be integrated by kubernetes admin user
+##
+apiVersion: 'v1'
+kind: 'PersistentVolume'
+metadata:
+  name: 'gluster-pv-monnamespacetest-data1'
+spec:
+  ## volume could only be used by namespace monnamespacetest
+  claimRef:
+    name: 'claimref-gluster-pv-monnamespacetest-data1'
+    namespace: 'monnamespacetest'
+  capacity:
+    storage: '2Gi'
+  accessModes:
+    - "ReadOnlyMany"
+  # If no storageclassname using default mytinydc glusterfs storage
+  storageClassName: ''
+  persistentVolumeReclaimPolicy: 'Retain'
+  glusterfs:
+    endpoints: 'glusterfs-cluster'
+    path: 'useanexistingglustervolume'
+    readOnly: true
+---
