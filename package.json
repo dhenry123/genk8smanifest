@@ -1,6 +1,6 @@
 {
   "name": "genk8smanifest",
-  "version": "v0.1.0-beta.1",
+  "version": "v0.1.0-beta.2",
   "description": "génerateur de 'manifest' kubernetes à partir d'un fichier de description yaml",
   "main": "index.js",
   "scripts": {
