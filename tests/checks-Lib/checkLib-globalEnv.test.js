@@ -30,7 +30,7 @@ test("globalEnv - KO - global.env - item malformed - test", async () => {
 test("globalEnv - KO - global.env - item malformed- test=1=1", async () => {
   expect(
     checkLib.globalEnv({ global: { env: ["test=1=1"] } }, displayalert)
-  ).toBe(false);
+  ).toBe(true);
 });
 test("globalEnv - KO - global.env - item malformed- 1", async () => {
   expect(checkLib.globalEnv({ global: { env: [1] } }, displayalert)).toBe(

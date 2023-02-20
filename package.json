@@ -8,6 +8,8 @@
     "testFull": "jest --reporters=default --coverage",
     "testunitchecklibcontainer": "jest --reporters=default --coverage containers",
     "testunitchecklibglobalStrategy": "jest --reporters=default --coverage checkLib-globalStrategy",
+    "testunitcheckLib-secrets": "jest --reporters=default --coverage checkLib-secrets",
+    "testunitcheckLib-envvars": "jest --reporters=default --coverage checkLib-envvars",
     "testunitcheckLib-Miscs": "jest --reporters=default --coverage checkLib-Miscs",
     "testunit-genNamespace": "jest --reporters=default --coverage Namespace",
     "testunit-genSecret-dockerregistry": "jest --reporters=default --coverage Secret-dockerregistry",
@@ -51,8 +53,7 @@
     "outputPath": "dist",
     "targets": [
       "node16-linux-x64",
-      "node16-linux-arm64",
-      "node16-win-x64"
+      "node16-linux-arm64"
     ]
   }
 }

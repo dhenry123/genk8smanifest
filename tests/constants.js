@@ -7,6 +7,7 @@ const document = {
     env: [
       "MONNAMESPACETEST__database__DB_TYPE=postgres",
       "MONNAMESPACETEST1__database__DB_TYPE=postgres",
+      "CONNECT_DATABASE_STRING=postgres://xxxx:password@xxx.xxx.xxx.xxx:5432/app?sslmode=disable",
     ],
     nodeaffinity: [{ key: "serialport", value: "yes" }],
     securitycontext: {

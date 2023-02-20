@@ -10,7 +10,7 @@ test(`${manifest} - OK - `, async () => {
     .genSecretsGlobalEnv(document, { generationoptions: [] })
     .then((result) => {
       // !!!you ve changed specifications, so you must generate the final Manifest and check that content is ok on kubernets cluster
-      //testLib.saveDocument(result, manifest);
+      // testLib.saveDocument(result, manifest);
       YAML.parseAllDocuments(result);
       // compare to expected result
       expect(testLib.compareExpectedResult(manifest, result)).toBe(true);

@@ -48,6 +48,12 @@ spec:
                 name: 'monnamespacetest-secret-envvars'
                 key: 'MONNAMESPACETEST1__database__DB_TYPE'
                 optional: false
+          - name: 'CONNECT_DATABASE_STRING'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'CONNECT_DATABASE_STRING'
+                optional: false
         image: 'app/app1:1.0.0'
         imagePullPolicy: 'IfNotPresent'
         livenessProbe:
@@ -92,6 +98,12 @@ spec:
               secretKeyRef:
                 name: 'monnamespacetest-secret-envvars'
                 key: 'MONNAMESPACETEST1__database__DB_TYPE'
+                optional: false
+          - name: 'CONNECT_DATABASE_STRING'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'CONNECT_DATABASE_STRING'
                 optional: false
         image: 'app/app2:1.0.1'
         imagePullPolicy: 'Always'
