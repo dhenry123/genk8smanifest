@@ -41,7 +41,6 @@
   "license": "A-GPL",
   "dependencies": {
     "ejs": "^3.1.8",
-    "jest": "^29.3.1",
     "yaml": "^2.2.0"
   },
   "pkg": {
@@ -52,8 +51,10 @@
     ],
     "outputPath": "dist",
     "targets": [
-      "node16-linux-x64",
       "node16-linux-arm64"
     ]
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
   }
 }

@@ -5,3 +5,4 @@ mydescriptions
 testexportdefaulttemplates
 .vscode/settings.json
 description.yml
+dist/*
