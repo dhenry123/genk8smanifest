@@ -76,11 +76,22 @@ spec:
           - containerPort: <%= service.targetport %>
             protocol: '<%= service.protocol ? service.protocol : "TCP" %>'
             name : 'port-<%= service.targetport %>'<% }); %>
-        volumeMounts:<% container.volumes.forEach(function(volume){ %>
+        
+        <% if (container.volumes.length ) { %>volumeMounts:<% container.volumes.forEach(function(volume){ %>
           - mountPath: '<%= volume.mount %>'
-            name: '<%= volume.manifestvolumename %>'<% }); %><% }); %>
-      volumes:<% deploymentvolumes.forEach(function(volume){ %>
+            name: '<%= volume.manifestvolumename %>'
+            <% if (volume.srctype === "file" && volume.existingdir) { %>subPath: '<%= volume.subpath %>'<% } %>
+            <% }); %><% } %>
+        <% }); %>
+            
+      <% if (deploymentvolumes) { %>volumes:<% deploymentvolumes.forEach(function(volume){ %>
         - name: '<%= volume.manifestvolumename %>'
           <% if (!volume.tempfs) { %>persistentVolumeClaim:
-            claimName: 'claimref-gluster-pv-<%= namespace %>-<%= volume.name %>'<% }else{ %>emptyDir: {}<%}}); %>
+            claimName: 'claimref-gluster-pv-<%= namespace %>-<%= volume.name %>'
+          <% }else if(volume.srctype === "file" && volume.existingdir){ %>
+          configMap:
+            name: '<%= volume.configmapname %>'
+          <% }else{ %>
+          emptyDir: {}
+          <%}});} %>
 ---

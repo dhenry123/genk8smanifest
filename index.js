@@ -4,7 +4,7 @@ const mainLib = require("./lib/mainLib");
 const fs = require("fs");
 
 const productname = "GenK8sManifest [@mytinydc.com]";
-const version = "v0.1.0-beta.2";
+const version = "v0.1.0-beta.5";
 
 /**
  * sync main process
@@ -97,6 +97,16 @@ const version = "v0.1.0-beta.2";
     // Persistent volumes claim
     await genLib
       .genPersitentVolume(document, true, cmdarguments)
+      .then((result) => {
+        yamldocument.push(result);
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    // Persistent volumes claim
+    await genLib
+      .genConfigMaps(document, cmdarguments)
       .then((result) => {
         yamldocument.push(result);
       })

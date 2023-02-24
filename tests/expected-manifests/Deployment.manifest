@@ -85,6 +85,12 @@ spec:
             name: 'tmpvol-temp'
           - mountPath: '/logs'
             name: 'tmpvol-logs'
+          - mountPath: '/opt/healthchecks/docker/uwsgi.ini'
+            name: 'configmapvolume-uwsgi-ini'
+            subPath: 'uwsgi.ini'
+          - mountPath: '/opt/healthchecks/hc/local_settings.py'
+            name: 'configmapvolume-local-settings-py'
+            subPath: 'local_settings.py'
       - name: 'container2'
         env:
           - name: 'MONNAMESPACETEST__database__DB_TYPE'
@@ -148,4 +154,10 @@ spec:
           emptyDir: {}
         - name: 'tmpvol-logs'
           emptyDir: {}
+        - name: 'configmapvolume-uwsgi-ini'
+          configMap:
+            name: 'uwsgi-ini-monnamespacetest-configmap'
+        - name: 'configmapvolume-local-settings-py'
+          configMap:
+            name: 'local-settings-py-monnamespacetest-configmap'
 ---

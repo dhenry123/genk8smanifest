@@ -29,8 +29,25 @@ const document = {
       { name: "temp", mount: "/temp" },
       { name: "logs", mount: "/logs" },
     ],
+    configmaps: [
+      {
+        name: "uwsgi-ini",
+        mount: "/opt/healthchecks/docker/uwsgi.ini",
+        srctype: "file",
+        srcpath: "tests/uwsgi.ini",
+        existingdir: true,
+      },
+      {
+        name: "local-settings-py",
+        mount: "/opt/healthchecks/hc/local_settings.py",
+        srctype: "file",
+        srcpath: "tests/local_settings.py",
+        existingdir: true,
+      },
+    ],
     scale: { scalable: false, replicas: 1 },
   },
+
   secrets: [
     {
       name: "dockerregistry",
