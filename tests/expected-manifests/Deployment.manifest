@@ -151,13 +151,13 @@ spec:
           persistentVolumeClaim:
             claimName: 'claimref-gluster-pv-monnamespacetest-data1'
         - name: 'tmpvol-temp'
-            emptyDir: {}
+          emptyDir: {}
         - name: 'tmpvol-logs'
-            emptyDir: {}
+          emptyDir: {}
         - name: 'configmapvolume-uwsgi-ini'
-            configMap:
-              name: 'uwsgi-ini-monnamespacetest-configmap'
+          configMap:
+            name: 'uwsgi-ini-monnamespacetest-configmap'
         - name: 'configmapvolume-local-settings-py'
-            configMap:
-              name: 'local-settings-py-monnamespacetest-configmap'
+          configMap:
+            name: 'local-settings-py-monnamespacetest-configmap'
 ---

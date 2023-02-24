@@ -89,9 +89,9 @@ spec:
           <% if (!volume.tempfs) { %>persistentVolumeClaim:
             claimName: 'claimref-gluster-pv-<%= namespace %>-<%= volume.name %>'
           <% }else if(volume.srctype === "file" && volume.existingdir){ %>
-            configMap:
-              name: '<%= volume.configmapname %>'
+          configMap:
+            name: '<%= volume.configmapname %>'
           <% }else{ %>
-            emptyDir: {}
+          emptyDir: {}
           <%}});} %>
 ---
