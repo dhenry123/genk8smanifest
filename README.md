@@ -87,9 +87,9 @@ M-->|deploiement|K
 - [x] Ingress - **Pour l'instant, supporte seulement la notion "host"**
 - [x] Egress - Je ne dispose pas de contrôleur réseau permettant l'usage des Egress... Donc non supporté
 - [x] ReplicaSet - La documentation Kubernetes indique préférer cette gestion au travers du "Deployment" - Donc non supporté
+- [ ] Configmaps - Uniquement pour un nom de fichier et son contenu disposé dans un répertoire accessible du générateur
 - @todo :
   - [ ] Cronjob (-cron) -
-  - [ ] Configmaps (-cfm) -
   - [ ] Resource Quotas (-rq) -
   - [ ] Service account (-servacc) -
   - [ ] RBAC (-rbac) -
@@ -114,9 +114,8 @@ node index.js [arguments]
 
 ## Utilisation avec l'exécutable
 
-Télécharger l'exécutable adapté à votre plateforme à partir du répertoire "dist" de ce repository git.
-
-Les exécutables sont générés par le projet "Pkg" disponible sur le repository "NPM".
+Les exécutables sont générés par le projet "Pkg" disponible sur le repository "NPM". Récupérer ce dépôt, `npm install` puis `npm build-executables`.
+Les fichiers ne seront pas stockés (trop volumineux pour la souscription gratuite).
 
 ## Arguments de commande
 
@@ -135,6 +134,7 @@ Les exécutables sont générés par le projet "Pkg" disponible sur le repositor
   - "-l" : Génère uniquement le Manifest "LimitRange"
   - "-d" : Génère uniquement le Manifest "Deployment" (incluant les secrets)
   - "-serv" : Génère uniquement le Manifest "Service" (incluant Ingress)
+  - "-cfm" : Génère uniquement le Manifest "ConfigMap"
   - L'ordre de génération est fixé, le namespace, les ressources, le deployment, les services.
 
 ## Tests
@@ -211,6 +211,8 @@ Utilisation de Codium, extensions :
 Concernant le build des exécutables "cross-platform", utilisation de "qemu" et du package npm "pkg".
 
 ### Utilisation de git-lfs
+
+_**Non utilisé finalement, espace gratuit trop faible**_
 
 <a href="https://codepre.com/fr/git-lfs-la-mejor-manera-de-manejar-archivos-grandes-en-git.html" target="_gitlfs">Ce site explique clairement l'utilisation de git-lfs</a>
 

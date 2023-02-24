@@ -85,6 +85,12 @@ spec:
             name: 'tmpvol-temp'
           - mountPath: '/logs'
             name: 'tmpvol-logs'
+          - mountPath: '/opt/healthchecks/docker/uwsgi.ini'
+            name: 'configmapvolume-uwsgi-ini'
+            subPath: 'uwsgi.ini'
+          - mountPath: '/opt/healthchecks/hc/local_settings.py'
+            name: 'configmapvolume-local-settings-py'
+            subPath: 'local_settings.py'
       - name: 'container2'
         env:
           - name: 'MONNAMESPACETEST__database__DB_TYPE'
@@ -145,7 +151,13 @@ spec:
           persistentVolumeClaim:
             claimName: 'claimref-gluster-pv-monnamespacetest-data1'
         - name: 'tmpvol-temp'
-          emptyDir: {}
+            emptyDir: {}
         - name: 'tmpvol-logs'
-          emptyDir: {}
+            emptyDir: {}
+        - name: 'configmapvolume-uwsgi-ini'
+            configMap:
+              name: 'uwsgi-ini-monnamespacetest-configmap'
+        - name: 'configmapvolume-local-settings-py'
+            configMap:
+              name: 'local-settings-py-monnamespacetest-configmap'
 ---

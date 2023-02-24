@@ -22,6 +22,18 @@ test("containers - OK - container dont need secret for registry ", async () => {
     })
   ).toBe(true);
 });
+test("containers - KO - containers is not array", async () => {
+  expect(
+    checkLib.containers({ ...document, containers: {} }, displayalert)
+  ).toBe(false);
+  expect(
+    checkLib.containers({ ...document, containers: "" }, displayalert)
+  ).toBe(false);
+  expect(
+    checkLib.containers({ ...document, containers: 1 }, displayalert)
+  ).toBe(false);
+});
+
 test("containers - KO - secrets not provided - needed for registry", async () => {
   expect(checkLib.containers({ ...document, secrets: [] }, displayalert)).toBe(
     false

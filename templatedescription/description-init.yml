@@ -19,6 +19,21 @@ global:
     - "https_proxy=http://mycorporateproxy.local:3128"
     - "HTTP_PROXY=http://mycorporateproxy.local:3128"
     - "HTTPS_PROXY=http://mycorporateproxy.local:3128"
+  configmaps:
+    # Pas de point dans les noms
+    - name: "uwsgi-ini"
+      # mount est le fullpath du montage final incluant le nom du fichier
+      mount: "/opt/healthchecks/docker/uwsgi.ini"
+      srctype: "file"
+      # Ce fichier absolue ou relatif au chemin d'exécution du générateur
+      srcpath: "resources/uwsgi.ini"
+      # montage dans un repertoire existant dans l'image utilisée par le container et déjà peuplé
+      existingdir: true
+    - name: "local-settings-py"
+      mount: "/opt/healthchecks/hc/local_settings.py"
+      srctype: "file"
+      srcpath: "resources/local_settings.py"
+      existingdir: true
   persistentvolumes:
     - name: "files"
       capacity: "80Gi"
@@ -55,6 +70,11 @@ containers:
       - "dockerregistry"
     tag: "beta"
     readonly: true
+    ## Par défaut si volumes non indiqué on prend la totalité des volumes indiqué dans global (persistent & temporary volumes & configmap as volume)
+    # eg : no volume, no configmap :
+    #volumes: []
+    # eg : only some volumes including configmap
+    #volumes: ['files','temp']
     probes:
       readiness:
         method: "http"

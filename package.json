@@ -1,6 +1,6 @@
 {
   "name": "genk8smanifest",
-  "version": "v0.1.0-beta.2",
+  "version": "v0.1.0-beta.4",
   "description": "génerateur de 'manifest' kubernetes à partir d'un fichier de description yaml",
   "main": "index.js",
   "scripts": {
@@ -11,6 +11,7 @@
     "testunitcheckLib-secrets": "jest --reporters=default --coverage checkLib-secrets",
     "testunitcheckLib-envvars": "jest --reporters=default --coverage checkLib-envvars",
     "testunitcheckLib-Miscs": "jest --reporters=default --coverage checkLib-Miscs",
+    "testunitcheckLib-configMaps": "jest --reporters=default --coverage checkLib-configMaps",
     "testunit-genNamespace": "jest --reporters=default --coverage Namespace",
     "testunit-genSecret-dockerregistry": "jest --reporters=default --coverage Secret-dockerregistry",
     "testunit-genSecret-globalEnv": "jest --reporters=default --coverage Secret-globalEnv",
@@ -22,6 +23,7 @@
     "testunit-genDeployment": "jest --reporters=default --coverage Deployment",
     "testunit-genService": "jest --reporters=default --coverage Service",
     "testunit-genServiceNoIngress": "jest --reporters=default --coverage ServiceNoIngress",
+    "testunit-genConfigMaps": "jest --reporters=default --coverage ConfigMaps",
     "testunit-commandlinearguments": "jest --reporters=default --coverage commandlinearguments",
     "testunit-helperGenLig-getTemplate": "jest --reporters=default --coverage getTemplate",
     "genpartial-namespace": "node index -i applicationDescriptionExemple -s -n",
@@ -31,6 +33,7 @@
     "genpartial-pvc": "node index -i applicationDescriptionExemple -s -pvc ",
     "genpartial-limitrange": "node index -i applicationDescriptionExemple -s -l ",
     "genpartial-service": "node index -i applicationDescriptionExemple -s -serv ",
+    "genpartial-ConfigMaps": "node index -i applicationDescriptionExemple -cfm ",
     "genManifest-exemple": "node index -i applicationDescriptionExemple -o output/manifest.yml",
     "genManifest-exemple-with-customtpl": "node index -tplcustomdir templatescustom -i applicationDescriptionExemple",
     "exportdefaulttemplates": "node index -e testexportdefaulttemplates",
