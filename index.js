@@ -4,7 +4,7 @@ const mainLib = require("./lib/mainLib");
 const fs = require("fs");
 
 const productname = "GenK8sManifest [@mytinydc.com]";
-const version = "v0.1.0-beta.4";
+const version = "v0.1.0-beta.5";
 
 /**
  * sync main process

@@ -80,15 +80,15 @@ containers:
         method: "http"
         path: "/api/healthz"
         port: 3115
-        initdelay: 3
-        period: 2
+        initdelay: 10
+        period: 30
         timeout: 3
       startup:
         method: "http"
         path: "/api/healthz"
         port: 3115
-        initdelay: 3
-        period: 120
+        initdelay: 20
+        period: 60
         timeout: 3
       liveness:
         method: "http"
