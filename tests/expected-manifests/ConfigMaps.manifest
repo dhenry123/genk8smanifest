@@ -4,7 +4,7 @@ metadata:
   name: 'uwsgi-ini-monnamespacetest-configmap'
   namespace: 'monnamespacetest'
 data:
-  uwsgi-ini: |+
+  uwsgi.ini: |+
     [uwsgi]    
     master    
     die-on-term    
@@ -28,7 +28,7 @@ metadata:
   name: 'local-settings-py-monnamespacetest-configmap'
   namespace: 'monnamespacetest'
 data:
-  local-settings-py: |+
+  local_settings.py: |+
     import os    
     CSRF_TRUSTED_ORIGINS = os.getenv(&#34;CSRF_TRUSTED_ORIGINS&#34;, &#34;&#34;).split(&#34;,&#34;)    
 ---
