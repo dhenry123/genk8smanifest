@@ -30,5 +30,5 @@ metadata:
 data:
   local_settings.py: |+
     import os    
-    CSRF_TRUSTED_ORIGINS = os.getenv(&#34;CSRF_TRUSTED_ORIGINS&#34;, &#34;&#34;).split(&#34;,&#34;)    
+    CSRF_TRUSTED_ORIGINS = os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",")    
 ---
