@@ -1,6 +1,6 @@
 {
   "name": "genk8smanifest",
-  "version": "v0.1.0-beta.6",
+  "version": "v0.1.0-beta.7",
   "description": "génerateur de 'manifest' kubernetes à partir d'un fichier de description yaml",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "testunitcheckLib-envvars": "jest --reporters=default --coverage checkLib-envvars",
     "testunitcheckLib-Miscs": "jest --reporters=default --coverage checkLib-Miscs",
     "testunitcheckLib-configMaps": "jest --reporters=default --coverage checkLib-configMaps",
+    "testunitcheckLib-cronjob": "jest --reporters=default --coverage checkLib-cronjob",
     "testunit-genNamespace": "jest --reporters=default --coverage Namespace",
     "testunit-genSecret-dockerregistry": "jest --reporters=default --coverage Secret-dockerregistry",
     "testunit-genSecret-globalEnv": "jest --reporters=default --coverage Secret-globalEnv",
@@ -24,6 +25,7 @@
     "testunit-genService": "jest --reporters=default --coverage Service",
     "testunit-genServiceNoIngress": "jest --reporters=default --coverage ServiceNoIngress",
     "testunit-genConfigMaps": "jest --reporters=default --coverage ConfigMaps",
+    "testunit-genCronJob": "jest --reporters=default --coverage CronJob",
     "testunit-commandlinearguments": "jest --reporters=default --coverage commandlinearguments",
     "testunit-helperGenLig-getTemplate": "jest --reporters=default --coverage getTemplate",
     "genpartial-namespace": "node index -i applicationDescriptionExemple -s -n",
@@ -34,6 +36,7 @@
     "genpartial-limitrange": "node index -i applicationDescriptionExemple -s -l ",
     "genpartial-service": "node index -i applicationDescriptionExemple -s -serv ",
     "genpartial-ConfigMaps": "node index -i applicationDescriptionExemple -cfm ",
+    "genpartial-CronJob": "node index -i applicationDescriptionExemple -cron ",
     "genManifest-exemple": "node index -i applicationDescriptionExemple -o output/manifest.yml",
     "genManifest-exemple-with-customtpl": "node index -tplcustomdir templatescustom -i applicationDescriptionExemple",
     "exportdefaulttemplates": "node index -e testexportdefaulttemplates",

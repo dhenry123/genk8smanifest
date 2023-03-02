@@ -87,12 +87,12 @@ M-->|deploiement|K
 - [x] Ingress - **Pour l'instant, supporte seulement la notion "host"**
 - [x] Egress - Je ne dispose pas de contrôleur réseau permettant l'usage des Egress... Donc non supporté
 - [x] ReplicaSet - La documentation Kubernetes indique préférer cette gestion au travers du "Deployment" - Donc non supporté
-- [ ] Configmaps - Uniquement pour un nom de fichier et son contenu disposé dans un répertoire accessible du générateur
+- [x] Configmaps - Uniquement pour un nom de fichier et son contenu disposé dans un répertoire accessible du générateur
+- [x] Cronjob (-cron) - Uniquement pour un appel curl
 - @todo :
-  - [ ] Cronjob (-cron) -
+  - [ ] RBAC - Gestion des permissions
   - [ ] Resource Quotas (-rq) -
   - [ ] Service account (-servacc) -
-  - [ ] RBAC (-rbac) -
 
 ## Templates
 
@@ -135,6 +135,7 @@ Les fichiers ne seront pas stockés (trop volumineux pour la souscription gratui
   - "-d" : Génère uniquement le Manifest "Deployment" (incluant les secrets)
   - "-serv" : Génère uniquement le Manifest "Service" (incluant Ingress)
   - "-cfm" : Génère uniquement le Manifest "ConfigMap"
+  - "-rbac" : Génère uniquement le Manifest concernant les "RBAC"
   - L'ordre de génération est fixé, le namespace, les ressources, le deployment, les services.
 
 ## Tests

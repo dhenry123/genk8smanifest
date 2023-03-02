@@ -39,7 +39,8 @@ global:
       capacity: "80Gi"
       access: "RWO"
       mount: "/tracks"
-      useexistingglustervolume: "glustervolumesfiles"
+      # mytinydc only : set name of specific name of gluster volume to user
+      #useexistingglustervolume: "glustervolumesfiles"
     - name: "resourcesobjects"
       capacity: "1Gi"
       access: "RWO"
@@ -63,6 +64,18 @@ global:
   scale:
     scalable: false
     replicas: 1
+  cronjob:
+    - name: "backgroundjob"
+      url: "https://server/api/v1/cron"
+      # Default is this image (arbitrary)
+      #image: "curlimages/curl:7.81.0"
+      # Image pullPolicy
+      #imagePullPolicy : "IfNotPresent"
+      type: "curl"
+      cron: "0 0,6,12,18 * * *"
+      backofflimit: 5
+      activedeadlineseconds: 3600
+      restartpolicy: "OnFailure"
 containers:
   - name: "monpremiercontainer"
     image: "docker.private.local/exemplemonpremiercontainer"

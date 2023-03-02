@@ -1,0 +1,23 @@
+apiVersion: 'batch/v1'
+kind: 'CronJob'
+metadata:
+  namespace: '<%= namespace %>'
+  name: '<%= cron.name %>'
+spec:
+  schedule: '<%= cron.cron %>' 
+  jobTemplate:
+    spec:
+      backoffLimit: <%= cron.backofflimit || 5 %>
+      activeDeadlineSeconds: <%= cron.activedeadlineseconds || 3600 %>
+      template:
+        spec:
+          containers:
+            - name: 'container-<%= namespace %>-<%= cron.name %>'
+              image: '<%= cron.image %>'
+              imagePullPolicy: '<%= cron.imagepullpolicy || "IfNotPresent" %>'
+              command:
+                - /bin/sh
+                - -c
+                - curl '<%= cron.url %>'
+          restartPolicy: '<%= cron.restartpolicy || "OnFailure" %>'
+---

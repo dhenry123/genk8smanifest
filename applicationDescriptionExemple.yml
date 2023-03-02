@@ -62,6 +62,16 @@ global:
   scale:
     scalable: false
     replicas: 1
+  cronjob:
+    - name: "backgroundjob"
+      url: "https://server/api/v1/cron"
+      type: "curl"
+      image: "curlimages/curl:7.81.0"
+      imagePullPolicy: "IfNotPresent"
+      cron: "0 0,6,12,18 * * *"
+      backofflimit: 5
+      activedeadlineseconds: 3600
+      restartpolicy: "OnFailure"
 containers:
   - name: "monpremiercontainer"
     image: "docker.private.local/exemplemonpremiercontainer"

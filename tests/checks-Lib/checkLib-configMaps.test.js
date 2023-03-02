@@ -37,7 +37,7 @@ test("configmaps - KO - containers is not array", async () => {
     checkLib.configMaps({ global: { configmaps: {} } }, displayalert)
   ).toBe(false);
   expect(
-    checkLib.configMaps({ global: { configmaps: "" } }, displayalert)
+    checkLib.configMaps({ global: { configmaps: "xxx" } }, displayalert)
   ).toBe(false);
   expect(checkLib.configMaps({ global: { configmaps: 1 } }, displayalert)).toBe(
     false
