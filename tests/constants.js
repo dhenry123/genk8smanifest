@@ -45,6 +45,18 @@ const document = {
         existingdir: true,
       },
     ],
+    cronjob: [
+      {
+        type: "curl",
+        name: "backgroundjob",
+        url: "https://server/api/v1/cron",
+        cron: "0 0,6,12,18 * * *",
+        backofflimit: 5,
+        activedeadlineseconds: 3600,
+        restartpolicy: "OnFailure",
+        imagepullpolicy: "IfNotPresent",
+      },
+    ],
     scale: { scalable: false, replicas: 1 },
   },
 

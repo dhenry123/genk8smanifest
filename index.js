@@ -4,7 +4,7 @@ const mainLib = require("./lib/mainLib");
 const fs = require("fs");
 
 const productname = "GenK8sManifest [@mytinydc.com]";
-const version = "v0.1.0-beta.6";
+const version = "v0.1.0-beta.7";
 
 /**
  * sync main process
@@ -137,6 +137,16 @@ const version = "v0.1.0-beta.6";
     // Service - including ingress if specified in description
     await genLib
       .genService(document, cmdarguments)
+      .then((result) => {
+        yamldocument.push(result);
+      })
+      .catch((error) => {
+        throw error;
+      });
+
+    // Cronjob
+    await genLib
+      .genCronJob(document, cmdarguments)
       .then((result) => {
         yamldocument.push(result);
       })
