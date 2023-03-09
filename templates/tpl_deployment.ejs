@@ -35,13 +35,17 @@ spec:
                 - '<%= nodeaffinity.value %>'<% }); %><% }; %>
       containers:<% containers.forEach(function(container){ %>
       - name: '<%= container.name %>'
-        env:<% global.env.forEach(function(env){ %>
-          - name: '<%= env.key %>'
+        env:<% container.env.forEach(function(env){ %>
+          <% if (env.value) { %>
+          - name: '<%= env.name || env.key %>'
             valueFrom : 
               secretKeyRef:
                 name: '<%= namespace %>-secret-envvars'
                 key: '<%= env.key %>'
-                optional: false<% }); %>
+                optional: false
+          <% } %>
+        <% }); %>
+          
         <% if (container.imagepullpolicy.match(/latest$/)) { %># lastest is here to be confortable :) but it's not a good practise<% }%>
         image: '<%= container.image %>:<%= container.tag ? container.tag : 'latest' %>'
         imagePullPolicy: '<%= container.imagepullpolicy %>'

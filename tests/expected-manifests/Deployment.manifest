@@ -40,19 +40,19 @@ spec:
             valueFrom : 
               secretKeyRef:
                 name: 'monnamespacetest-secret-envvars'
-                key: 'MONNAMESPACETEST__database__DB_TYPE'
-                optional: false
-          - name: 'MONNAMESPACETEST1__database__DB_TYPE'
-            valueFrom : 
-              secretKeyRef:
-                name: 'monnamespacetest-secret-envvars'
-                key: 'MONNAMESPACETEST1__database__DB_TYPE'
+                key: 'CUSTOMCONTAINER_container1_CUSTOMCONTAINER_MONNAMESPACETEST__database__DB_TYPE'
                 optional: false
           - name: 'CONNECT_DATABASE_STRING'
             valueFrom : 
               secretKeyRef:
                 name: 'monnamespacetest-secret-envvars'
                 key: 'CONNECT_DATABASE_STRING'
+                optional: false
+          - name: 'ENVPERSO1'
+            valueFrom : 
+              secretKeyRef:
+                name: 'monnamespacetest-secret-envvars'
+                key: 'CUSTOMCONTAINER_container1_CUSTOMCONTAINER_ENVPERSO1'
                 optional: false
         image: 'app/app1:1.0.0'
         imagePullPolicy: 'IfNotPresent'
@@ -99,11 +99,11 @@ spec:
                 name: 'monnamespacetest-secret-envvars'
                 key: 'MONNAMESPACETEST__database__DB_TYPE'
                 optional: false
-          - name: 'MONNAMESPACETEST1__database__DB_TYPE'
+          - name: 'MONNAMESPACETEST__database__name'
             valueFrom : 
               secretKeyRef:
                 name: 'monnamespacetest-secret-envvars'
-                key: 'MONNAMESPACETEST1__database__DB_TYPE'
+                key: 'MONNAMESPACETEST__database__name'
                 optional: false
           - name: 'CONNECT_DATABASE_STRING'
             valueFrom : 

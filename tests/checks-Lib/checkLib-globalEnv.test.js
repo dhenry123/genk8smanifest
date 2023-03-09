@@ -42,3 +42,23 @@ test("globalEnv - KO - global.env - item malformed - {}", async () => {
     false
   );
 });
+test("globalEnv - KO - container.env is array", async () => {
+  expect(
+    checkLib.globalEnv(
+      {
+        global: { env: [] },
+        containers: [{ name: "test", env: [] }],
+      },
+      displayalert
+    )
+  ).toBe(true);
+});
+
+test("globalEnv - KO - container.env - not array", async () => {
+  expect(
+    checkLib.globalEnv(
+      { global: { env: [{}] }, containers: [{ name: "test", env: 1 }] },
+      displayalert
+    )
+  ).toBe(false);
+});

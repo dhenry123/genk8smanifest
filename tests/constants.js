@@ -6,7 +6,7 @@ const document = {
     strategy: "Recreate",
     env: [
       "MONNAMESPACETEST__database__DB_TYPE=postgres",
-      "MONNAMESPACETEST1__database__DB_TYPE=postgres",
+      "MONNAMESPACETEST__database__name=postgres",
       "CONNECT_DATABASE_STRING=postgres://xxxx:password@xxx.xxx.xxx.xxx:5432/app?sslmode=disable",
     ],
     nodeaffinity: [{ key: "serialport", value: "yes" }],
@@ -80,6 +80,13 @@ const document = {
       imagepullpolicy: "IfNotPresent",
       readonly: true,
       dockerregistrysecret: ["dockerregistry"],
+      commentenv:
+        "add ENVPERSO1 && override global.env.MONNAMESPACETEST__database__DB_TYPE && unset of global.env.MONNAMESPACETEST__database__name",
+      env: [
+        "ENVPERSO1=test",
+        "MONNAMESPACETEST__database__DB_TYPE=mysql",
+        "MONNAMESPACETEST__database__name",
+      ],
       probes: {
         liveness: {
           method: "exec",
@@ -174,7 +181,7 @@ const document1 = {
     strategy: "Recreate",
     env: [
       "MONNAMESPACETEST__database__DB_TYPE=postgres",
-      "MONNAMESPACETEST1__database__DB_TYPE=postgres",
+      "MONNAMESPACETEST__database__name=postgres",
     ],
     nodeaffinity: [{ key: "serialport", value: "yes" }],
     securitycontext: {
