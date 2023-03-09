@@ -58,6 +58,9 @@ global:
       cpu: "100m"
       memory: "50Mi"
   securitycontext:
+    # Run container as, if runasuser !== 0 the final securityContext.runAsNonRoot will be set to true
+    # @todo test with runAsNonRoot: true without runasuser, runasgroup !!!!
+    # runasnonroot: true
     runasuser: 21000
     runasgroup: 21000
     fsgroup: 21000
@@ -82,7 +85,14 @@ containers:
     dockerregistrysecret:
       - "dockerregistry"
     tag: "beta"
-    readonly: true
+    # if container should run as readonly could also put in this container securitycontext if securitycontext is defined
+    #readonly: true
+    # Warn global.securitycontext will be add defacto, but values described below will overiden global
+    # securitycontext:
+    #   runasuser: 1000
+    #   runasgroup: 1000
+    #   fsgroup: 1000
+    #   readonly: true
     ## Par défaut si volumes non indiqué on prend la totalité des volumes indiqué dans global (persistent & temporary volumes & configmap as volume)
     # eg : no volume, no configmap :
     #volumes: []
