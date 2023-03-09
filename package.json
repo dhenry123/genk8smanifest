@@ -41,7 +41,7 @@
     "genManifest-exemple-with-customtpl": "node index -tplcustomdir templatescustom -i applicationDescriptionExemple",
     "exportdefaulttemplates": "node index -e testexportdefaulttemplates",
     "build-executables": "pkg --compress GZip -c ./package.json index.js",
-    "execute-exemple": "./dist/genk8smanifest-x64 -i ./applicationDescriptionExemple"
+    "execute-exemple": "./dist/genk8smanifest -i ./applicationDescriptionExemple"
   },
   "author": "Damien HENRY - Pour Mytinydc.com",
   "license": "A-GPL",
