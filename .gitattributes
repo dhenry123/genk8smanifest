@@ -1,3 +1,0 @@
-dist/genk8smanifest-linux-arm64 filter=lfs diff=lfs merge=lfs -text
-dist/genk8smanifest-linux-x64 filter=lfs diff=lfs merge=lfs -text
-dist/genk8smanifest-win-x64.exe filter=lfs diff=lfs merge=lfs -text
