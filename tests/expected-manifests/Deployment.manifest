@@ -21,9 +21,9 @@ spec:
       - name : 'dockerregistry1'
       securityContext:
         runAsUser: 1000
-        runAsNonRoot: true
         runAsGroup: 1001
         fsGroup: 1002
+        runAsNonRoot: true
       affinity:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -136,6 +136,9 @@ spec:
             path: '/healthy'
             port: 3000
         securityContext:
+          runAsUser: 1005
+          runAsGroup: 1006
+          fsGroup: 1007
           readOnlyRootFilesystem: true
         ports:
         volumeMounts:

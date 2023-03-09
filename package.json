@@ -28,6 +28,7 @@
     "testunit-genCronJob": "jest --reporters=default --coverage CronJob",
     "testunit-commandlinearguments": "jest --reporters=default --coverage commandlinearguments",
     "testunit-helperGenLig-getTemplate": "jest --reporters=default --coverage getTemplate",
+    "testunit-helperGenLig-mischelpergenlib": "jest --reporters=default --coverage mischelpergenlib",
     "genpartial-namespace": "node index -i applicationDescriptionExemple -s -n",
     "genpartial-secrets": "node index -i applicationDescriptionExemple -s -sec ",
     "genpartial-deployment": "node index -i applicationDescriptionExemple -s -d ",

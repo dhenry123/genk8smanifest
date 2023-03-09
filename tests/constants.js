@@ -121,9 +121,19 @@ const document = {
       name: "container2",
       image: "app/app2",
       tag: "1.0.1",
+      commentreadonly:
+        "set here if you dont need container.securitycontext (simplicity)",
       readonly: true,
       dockerregistrysecret: ["dockerregistry"],
       volumes: ["data", "temp"],
+      securitycontext: {
+        COMMENTFORTHISCASE:
+          "here, global.securitycontext will be set and values described bellow will overiden global.securitycontext",
+        runasuser: 1005,
+        runasgroup: 1006,
+        fsgroup: 1007,
+        readonly: true,
+      },
       probes: {
         readiness: {
           method: "http",

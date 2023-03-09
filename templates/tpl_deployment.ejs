@@ -70,8 +70,13 @@ spec:
             <% } %>
           <% }) %>
         <% } %>
-        <% if (container.readonly) { %>securityContext:
-          readOnlyRootFilesystem: true<% }; %>
+        securityContext:
+          <% if (container.readonly && (!container.securitycontext || !container.securitycontext.readOnlyRootFilesystem )) { %>readOnlyRootFilesystem: true<% }; %>
+          <% if (container.securitycontext) { %>
+          <% Object.keys(container.securitycontext).forEach(function(key){ %>
+          <%= key %>: <%= container.securitycontext[key] %>
+          <% }); %>
+          <% }; %>
         ports:<% container.services.forEach(function(service){ %>
           - containerPort: <%= service.targetport %>
             protocol: '<%= service.protocol ? service.protocol : "TCP" %>'
