@@ -52,7 +52,7 @@ spec:
         <% if (container.probes) { %>
           <% Object.getOwnPropertyNames(container.probes).forEach(function(probe){ %>  
         <%= probe %>Probe:
-          <% if (["exec","http"].includes(container.probes[probe].method)) { %>
+          <% if (["exec","http","grpc"].includes(container.probes[probe].method)) { %>
             <% if (container.probes[probe].method === 'exec') { %>
           command:
           <% container.probes[probe].action.split(' ').forEach(function(item){ %>
@@ -60,12 +60,16 @@ spec:
             <% }) %>
             <% } %>
 
-            <% if (container.probes[probe].method === 'http') { %>
+          <% if (container.probes[probe].method === 'http') { %>
           httpGet:
             path: '<%= container.probes[probe].path %>'
             port: <%= container.probes[probe].port %>
             <% if (container.probes[probe].scheme) { %>scheme: '<%= container.probes[probe].scheme %>'<% } %>
-            <% } %>
+          <% } %>
+          <% if (container.probes[probe].method === 'grpc') { %>
+          grpc:
+            port: <%= container.probes[probe].port %>
+          <% } %>
           <% if (container.probes[probe].initdelay) {%>initialDelaySeconds: <%= container.probes[probe].initdelay %><% } %>
           <% if (container.probes[probe].period) {%>periodSeconds: <%= container.probes[probe].period %><% } %>
           <% if (container.probes[probe].timeout) {%>timeoutSeconds: <%= container.probes[probe].timeout %><% } %>

@@ -1,6 +1,6 @@
 {
   "name": "genk8smanifest",
-  "version": "v0.1.0-beta.7",
+  "version": "v0.1.0-beta.10",
   "description": "génerateur de 'manifest' kubernetes à partir d'un fichier de description yaml",
   "main": "index.js",
   "scripts": {
@@ -14,6 +14,8 @@
     "testunitcheckLib-Miscs": "jest --reporters=default --coverage checkLib-Miscs",
     "testunitcheckLib-configMaps": "jest --reporters=default --coverage checkLib-configMaps",
     "testunitcheckLib-cronjob": "jest --reporters=default --coverage checkLib-cronjob",
+    "testunitcheckLib-container": "jest --reporters=default --coverage checkLib-container",
+    "testunitcheckLib-persistentVolumes": "jest --reporters=default --coverage checkLib-persistentVolumes",
     "testunit-genNamespace": "jest --reporters=default --coverage Namespace",
     "testunit-genSecret-dockerregistry": "jest --reporters=default --coverage Secret-dockerregistry",
     "testunit-genSecret-fromEnv": "jest --reporters=default --coverage Secret-fromEnv",

@@ -13,7 +13,7 @@ spec:
   capacity:
     storage: '<%= volume.capacity %>'
   accessModes:
-    - "<%= volume.accessmode %>"
+    - "<%= volume.access %>"
   # If no storageclassname using default mytinydc glusterfs storage
   storageClassName: '<%= volume.storageclassname %>'
   persistentVolumeReclaimPolicy: '<%= volume.reclaimpolicy ? volume.reclaimpolicy : 'Retain' %>'
