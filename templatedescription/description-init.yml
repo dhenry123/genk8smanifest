@@ -38,6 +38,8 @@ global:
     # pas de _ dans les nom de volume (voir doc kubernetes)
     - name: "files"
       capacity: "80Gi"
+      # RWO : ReadWriteOnce - RWX : ReadWriteMany - ROX : ReadOnlyMany
+      # see https://kubernetes.io/fr/docs/concepts/storage/persistent-volumes/#modes-d-acc%C3%A8s
       access: "RWO"
       mount: "/tracks"
       # mytinydc only : set name of specific name of gluster volume to user
@@ -101,30 +103,37 @@ containers:
     #   runasgroup: 1000
     #   fsgroup: 1000
     #   readonly: true
+    #  Container level (see kubernetes documentation)
+    #   privileged: true
     ## Par défaut si volumes non indiqué on prend la totalité des volumes indiqué dans global (persistent & temporary volumes & configmap as volume)
     # eg : no volume, no configmap :
     #volumes: []
     # eg : only some volumes including configmap
     #volumes: ['files','temp']
     probes:
+      # method for different probes : http, grpc, exec
       readiness:
         method: "http"
+        # path and port mandatory for http
         path: "/api/healthz"
+        # if application is httpS add scheme attr with https (default is http)
+        #scheme: "https"
         port: 3115
         initdelay: 10
         period: 30
         timeout: 3
+      # startup : see https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
       startup:
-        method: "http"
-        path: "/api/healthz"
+        # port mandatory for grpc
+        method: "grpc"
         port: 3115
-        initdelay: 20
-        period: 60
-        timeout: 3
+        # eg : the application will have a maximum of 5 minutes (30 * 10 = 300s) to finish its startup
+        period: 10
+        failure: 30
       liveness:
-        method: "http"
-        path: "/api/healthz"
-        port: 3115
+        method: "exec"
+        # action mandatory for exec
+        action: "cat /tmp/healthy"
         initdelay: 3
         period: 120
         timeout: 3

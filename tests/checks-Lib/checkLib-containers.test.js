@@ -22,6 +22,7 @@ test("containers - OK - container dont need secret for registry ", async () => {
     })
   ).toBe(true);
 });
+
 test("containers - KO - containers is not array", async () => {
   expect(
     checkLib.containers({ ...document, containers: {} }, displayalert)
@@ -118,25 +119,6 @@ test("containers - KO - services targetport is not number", async () => {
 });
 
 // probes
-test("containers - KO - container with probe readiness action no set", async () => {
-  expect(
-    checkLib.containers(
-      {
-        containers: [
-          {
-            name: "container1",
-            image: "app/app1",
-            tag: "1.0.0",
-            probes: {
-              readiness: [],
-            },
-          },
-        ],
-      },
-      displayalert
-    )
-  ).toBe(false);
-});
 
 test("containers - KO - container with probe readiness method not supported", async () => {
   expect(
@@ -156,6 +138,108 @@ test("containers - KO - container with probe readiness method not supported", as
                 timeout: 5,
                 success: 2,
                 failure: 2,
+              },
+            },
+          },
+        ],
+      },
+      displayalert
+    )
+  ).toBe(false);
+});
+
+test("containers - KO - container with probe startup is not object", async () => {
+  expect(
+    checkLib.containers(
+      {
+        containers: [
+          {
+            name: "container1",
+            image: "app/app1",
+            tag: "1.0.0",
+            probes: {
+              startup: [],
+            },
+          },
+        ],
+      },
+      displayalert
+    )
+  ).toBe(false);
+});
+
+test("containers - KO - container with probe readiness is not object", async () => {
+  expect(
+    checkLib.containers(
+      {
+        containers: [
+          {
+            name: "container1",
+            image: "app/app1",
+            tag: "1.0.0",
+            probes: {
+              readiness: [],
+            },
+          },
+        ],
+      },
+      displayalert
+    )
+  ).toBe(false);
+});
+
+test("containers - KO - container with probe liveness is not object", async () => {
+  expect(
+    checkLib.containers(
+      {
+        containers: [
+          {
+            name: "container1",
+            image: "app/app1",
+            tag: "1.0.0",
+            probes: {
+              liveness: [],
+            },
+          },
+        ],
+      },
+      displayalert
+    )
+  ).toBe(false);
+});
+
+test("containers - KO - container with probe readiness is empty object", async () => {
+  expect(
+    checkLib.containers(
+      {
+        containers: [
+          {
+            name: "container1",
+            image: "app/app1",
+            tag: "1.0.0",
+            probes: {
+              readiness: {},
+            },
+          },
+        ],
+      },
+      displayalert
+    )
+  ).toBe(false);
+});
+
+test("containers - KO - container with probe readiness method is not set", async () => {
+  expect(
+    checkLib.containers(
+      {
+        containers: [
+          {
+            name: "container1",
+            image: "app/app1",
+            tag: "1.0.0",
+            probes: {
+              readiness: {
+                port: 0,
               },
             },
           },

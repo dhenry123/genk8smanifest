@@ -25,12 +25,12 @@ global:
   persistentvolumes:
     - name: "files"
       capacity: "80Gi"
-      access: "RWO"
+      access: "RWX"
       mount: "/tracks"
       useexistingglustervolume: "glustervolumesfiles"
     - name: "resourcesobjects"
       capacity: "1Gi"
-      access: "RWO"
+      access: "RWX"
       mount: "/resourcesobjects"
   temporaryvolumes:
     - name: "temp"
@@ -60,7 +60,7 @@ global:
     runasgroup: 21000
     fsgroup: 21000
   scale:
-    scalable: false
+    scalable: true
     replicas: 1
   cronjob:
     - name: "backgroundjob"

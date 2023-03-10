@@ -38,7 +38,7 @@ test("persistentVolumes - KO - persistentvolumes item has not name attr ", async
       {
         global: {
           persistentvolumes: [
-            { accessmode: "RWO", mount: "/data", capacity: "4Gi" },
+            { access: "RWO", mount: "/data", capacity: "4Gi" },
           ],
         },
       },
@@ -52,7 +52,7 @@ test("persistentVolumes - KO - persistentvolumes item has a mandatory attr value
       {
         global: {
           persistentvolumes: [
-            { name: "", accessmode: "RWO", mount: "/data", capacity: "4Gi" },
+            { name: "", access: "RWO", mount: "/data", capacity: "4Gi" },
           ],
         },
       },
@@ -66,7 +66,7 @@ test("persistentVolumes - KO - persistentvolumes item has an other mandatory att
       {
         global: {
           persistentvolumes: [
-            { name: "data", accessmode: "RWO", mount: "", capacity: "4Gi" },
+            { name: "data", access: "RWO", mount: "", capacity: "4Gi" },
           ],
         },
       },
@@ -79,16 +79,14 @@ test("persistentVolumes - KO - persistentvolumes item has an other mandatory att
     checkLib.persistentVolumes(
       {
         global: {
-          persistentvolumes: [
-            { name: "data", accessmode: "RWO", capacity: "4Gi" },
-          ],
+          persistentvolumes: [{ name: "data", access: "RWO", capacity: "4Gi" }],
         },
       },
       displayalert
     )
   ).toBe(false);
 });
-test("persistentVolumes - KO - application is scalable and volume accessmode is <> RMW", async () => {
+test("persistentVolumes - KO - application is scalable and volume access is <> RMW", async () => {
   expect(
     checkLib.persistentVolumes(
       {
@@ -96,7 +94,7 @@ test("persistentVolumes - KO - application is scalable and volume accessmode is 
           persistentvolumes: [
             {
               name: "data",
-              accessmode: "RWO",
+              access: "RWO",
               capacity: "4Gi",
               mount: "/test",
             },
@@ -107,4 +105,25 @@ test("persistentVolumes - KO - application is scalable and volume accessmode is 
       displayalert
     )
   ).toBe(false);
+});
+
+test("persistentVolumes - KO - application is scalable and volume access is RMW", async () => {
+  expect(
+    checkLib.persistentVolumes(
+      {
+        global: {
+          persistentvolumes: [
+            {
+              name: "data",
+              access: "RWX",
+              capacity: "4Gi",
+              mount: "/test",
+            },
+          ],
+          scale: { scalable: true },
+        },
+      },
+      displayalert
+    )
+  ).toBe(true);
 });

@@ -70,6 +70,11 @@ spec:
           timeoutSeconds: 5
           successThreshold: 2
           failureThreshold: 2
+        startupProbe:
+          grpc:
+            port: 8080
+          periodSeconds: 10
+          failureThreshold: 30
         securityContext:
           readOnlyRootFilesystem: true
         ports:

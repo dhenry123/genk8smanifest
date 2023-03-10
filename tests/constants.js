@@ -16,10 +16,10 @@ const document = {
       fsgroup: 1002,
     },
     persistentvolumes: [
-      { name: "data", accessmode: "RWO", mount: "/data", capacity: "4Gi" },
+      { name: "data", access: "RWO", mount: "/data", capacity: "4Gi" },
       {
         name: "data1",
-        accessmode: "ROX",
+        access: "ROX",
         mount: "/data1",
         capacity: "2Gi",
         useexistingglustervolume: "useanexistingglustervolume",
@@ -102,6 +102,12 @@ const document = {
           timeout: 5,
           success: 2,
           failure: 2,
+        },
+        startup: {
+          method: "grpc",
+          port: 8080,
+          period: 10,
+          failure: 30,
         },
       },
       services: [
@@ -190,10 +196,10 @@ const document1 = {
       fsgroup: 1002,
     },
     persistentvolumes: [
-      { name: "data", accessmode: "RWO", mount: "/data", capacity: "4Gi" },
+      { name: "data", access: "RWO", mount: "/data", capacity: "4Gi" },
       {
         name: "data1",
-        accessmode: "ROX",
+        access: "ROX",
         mount: "/data1",
         capacity: "2Gi",
         useexistingglustervolume: "useanexistingglustervolume",
